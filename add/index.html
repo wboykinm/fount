@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="http://asset.geosprocket.com/img/favicon.ico" rel="shortcut icon" type=
+  "image/x-icon">
+  <meta content="text/html; charset=utf-8" http-equiv="Content-type">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name=
+  "viewport">
+  <title>Fount Collector</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/superhero/bootstrap.min.css" rel=
+  "stylesheet">
+  <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet'>
+  <style>
+    .starter-template {
+      padding: 40px 15px;
+      text-align: center;
+    }
+    #map {
+      height:400px;
+      width:100%;
+    }
+    #centerpoint {
+      display: none;
+      width: 128px;
+      height: 128px;
+      background: transparent url(../img/target_dribbble_2.png) 0 0 no-repeat scroll;
+      overflow: visible;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -64px 0 0 -64px;
+      pointer-events: none;
+      z-index: 11;
+      opacity: 1;
+      -webkit-transition: opacity 0.25s;
+      -moz-transition: opacity 0.25s;
+      -o-transition: opacity 0.25s;
+      -ms-transition: opacity 0.25s;
+      transition: opacity 0.25s;
+    }
+  </style>
+</head>
+<body>
+  <!--ADD THE FORM EMBEDURL BELOW-->
+  <meta content=
+  "https://docs.google.com/forms/d/e/1FAIpQLSekg05mOwOlqIUSR9g77d7dA53qv2xOvZhD_iJQALC7xZwvQg/viewform?embedded=true">
+  <!--ADD THE FORM RESPONSE ACTION HERE, WITH A REDIRECT-->
+  <script type="text/javascript">
+  var submitted=false;
+  </script> <iframe id="hidden_iframe" name="hidden_iframe" onload=
+  "if(submitted) {window.location='../';}"
+  style="display:none;"></iframe>
+  <form action=
+  "https://docs.google.com/forms/d/e/1FAIpQLSekg05mOwOlqIUSR9g77d7dA53qv2xOvZhD_iJQALC7xZwvQg/formResponse" id=
+  "ss-form" method="post" name="ss-form" onsubmit="submitted=true;" target="hidden_iframe">
+    <div class="container">
+      <div class="jumbotron starter-template">
+        <h1>Add a public water source to the map!</h1>
+      </div>
+      <div class="starter-template">
+        <h2><em>(1)</em> What's the name of this place (or what's the closest landmark, business or intersection)?</h2><input class="form-control" id=
+        "entry_1165162944" name="entry.1165162944" placeholder="Fountain name" value="">
+      </div>
+      <div class="starter-template">
+        <h2><em>(2)</em> Where is this water source?</h2>
+        <p><small>Drag the map to center the marker on the right location</small></p>
+        <div id="map">
+          <span class="" id="centerpoint" style="display: inline;"><span class="shadow"></span>
+          <span class="x"></span> <span class="marker"></span></span>
+        </div><!-- ADD GOOGLEFORM-RELATED INPUTS HERE, ALL HIDDEN.
+                THEY'LL BE GIVEN VALUES IN THE SCRIPT BELOW
+                THE "NAME" AND "ID" PARAMETERS MUST CORRESPOND TO
+                THOSE IN THE SOURCE OF THE GOOGLE-HOSTED LIVE FORM-->
+        <!-- QUESTION 2: LAT/LONG -->
+        <input id="entry_128446237" name="entry.128446237" type="hidden" value=""> 
+        <input id="entry_957516204" name="entry.957516204" type="hidden" value=""> <!-- PAGE STUFF -->
+        <input name="pageNumber" type="hidden" value="0"> <input name="backupCache" type="hidden" value="">
+      </div>
+      <div class="starter-template">
+        <h2>That's it! Thanks!</h2><input class="btn-lg btn-success" name="submit" type="submit"
+        value="Submit">
+        <hr>
+        <p><small><em>a repurposed <a href="https://twitter.com/vtcraghead" target="_blank">@vtcraghead</a> joint, crosshair by <a href="https://dribbble.com/shots/3602072-Focus-Target-Aim" target="_blank">Alfrey Davilla<a></em></small><em></em></p>
+      </div>
+    </div>
+  </form>
+  <script src="//code.jquery.com/jquery-1.10.2.min.js">
+  </script> 
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
+  </script> 
+  <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'>
+  </script> 
+  <script type='text/javascript'>  
+    var z = 17;
+    // assign starting location to BTV city hall if nothing else available
+    var y,x;
+    
+    // Build the map with a reusable function:
+    let buildMap = function() {
+      $('#entry_128446237').attr('value', y);
+      $('#entry_957516204').attr('value', x);
+      
+      L.mapbox.accessToken = 'pk.eyJ1IjoibGFuZHBsYW5uZXIiLCJhIjoicUtlZGgwYyJ9.UFYz8MD4lI4kIzk9bjGFvg';
+      var map = L.mapbox.map('map');
+      map.setView([y, x], z);
+      
+      var base = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/outdoors-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGFuZHBsYW5uZXIiLCJhIjoicUtlZGgwYyJ9.UFYz8MD4lI4kIzk9bjGFvg').addTo(map)
+
+      // Update these values as the map gets dragged around
+      map.on('moveend', function(event) {
+        $('#entry_128446237').attr('value', map.getCenter().lat);
+        $('#entry_957516204').attr('value', map.getCenter().lng);
+      });
+    }
+    
+    if (!navigator.geolocation){
+      y = 44.47657;
+      x = -73.21349;
+      buildMap()
+    } else {
+      // or use browser location
+      navigator.geolocation.getCurrentPosition(function(position) {
+        y = position.coords.latitude;
+        x = position.coords.longitude;
+        buildMap()
+      },function error() {
+        // again, if no geo in browser, use BTV city hall
+        y = 44.47657;
+        x = -73.21349;
+        buildMap()
+      });
+    }
+  </script>
+</body>
+</html>
