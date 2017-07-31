@@ -39,7 +39,8 @@ $.getJSON(url, function(data) {
       var feature = {
         type: 'Feature',
         properties: {
-          name: stops[i].gsx$name.$t
+          name: stops[i].gsx$name.$t,
+          description: stops[i].gsx$name.$t
         },
         geometry: {
           type: 'Point',
@@ -107,13 +108,7 @@ $.getJSON(url, function(data) {
     function createPopUp(currentFeature) {
       var popUps = document.getElementsByClassName('mapboxgl-popup');
       if (popUps[0]) popUps[0].remove();
-      var popupContent = '<h1>' + currentFeature.properties.name + '</h1>'
-      /*if (currentFeature.properties.description) {
-        popupContent = '<h3>' + currentFeature.properties.name + '</h3>' + '<h4>' + currentFeature.properties.description + '</h4><p class="pad3"><a onclick="navMe(' + currentFeature.geometry.coordinates + ')" class="button">Navigate</a></p>'
-      } else {
-        popupContent = '<h3>' + currentFeature.properties.name + '</h3><p class="pad3"><a onclick="navMe(' + currentFeature.geometry.coordinates + ')" class="button">Navigate</a></p>'
-      }*/
-      //console.log(popupContent)
+      var popupContent = '<div class="container"><h2>' + currentFeature.properties.name + '</h2><a onclick="navMe(' + currentFeature.geometry.coordinates + ')" class="button">Navigate</a></div>'
       var popup = new mapboxgl.Popup({
           closeOnClick: true
         })
