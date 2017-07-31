@@ -89,6 +89,8 @@ $.getJSON(url, function(data) {
         flyToSite(marker);
         // 2. Close all other popups and display popup for clicked site
         createPopUp(marker);
+        // the oddly-crucial bit:
+        e.stopPropagation();
       });
     });
 
