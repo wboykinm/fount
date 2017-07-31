@@ -120,7 +120,7 @@ $.getJSON(url, function(data) {
         .setLngLat(currentFeature.geometry.coordinates)
         .setHTML(popupContent)
         .addTo(map);
-      console.log(popup)
+      console.log('there should totally be a popup visible because this is the end of the createPopup function bound to ' + currentFeature.properties.name + '!')
     }
   });
 });
