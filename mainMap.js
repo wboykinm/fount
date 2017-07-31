@@ -110,7 +110,7 @@ $.getJSON(url, function(data) {
     function createPopUp(currentFeature) {
       var popUps = document.getElementsByClassName('mapboxgl-popup');
       if (popUps[0]) popUps[0].remove();
-      var popupContent = '<div class="container"><h4 class="text-info">' + currentFeature.properties.name + '</h4><a onclick="navMe(' + currentFeature.geometry.coordinates + ')" class="btn btn-primary">Navigate</a></div>'
+      var popupContent = '<h4 class="text-info">' + currentFeature.properties.name + '</h4><a onclick="navMe(' + currentFeature.geometry.coordinates + ')" class="btn btn-primary">Navigate</a>'
       var popup = new mapboxgl.Popup({
           closeOnClick: true
         })

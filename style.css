@@ -86,9 +86,11 @@ a:hover {
 }
 .mapboxgl-popup-content {
   font:400 15px/22px 'Didact Gothic', sans-serif;
-  padding:0;
-  width:180px;
+  padding:40px0;
+  min-width:180px;
+  max-width:250px;
   border-bottom: 1px solid #fff;
+  text-align:center;
 }
 .mapboxgl-popup-content-wrapper {
   padding:1%;
@@ -114,6 +116,7 @@ a:hover {
 
 .mapboxgl-popup-content div {
   padding:10px;
+  text-align:center;
 }
 
 .mapboxgl-container .leaflet-marker-icon { 
