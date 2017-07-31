@@ -4,100 +4,50 @@
 <meta charset=utf-8 />
 <title>Fount</title>
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-<link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.33.1/mapbox-gl.css' rel='stylesheet' />
 <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
 <style>
-  body { margin:0; padding:0; }
-  #map { position:absolute; top:0; bottom:0; width:100%; }
+  
 </style>
 </head>
 <body>
-<style>
-  .leaflet-popup-content-wrapper {
-    background: #227FBB; !important
-  }
-  .leaflet-popup-tip {
-    border-top: 10px solid #227FBB; !important
-  }
-  div.marker-title {
-    color: #fff; !important
-  }
-  #content {
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:0;
-    background:RGBA(150, 150, 150, 0.9);
-  }
-    .sidecontainer {
-    padding:20px;
-  }
-</style>
+<nav class='infoToggle'>
+  <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">
+    <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+  </button>
+</nav>
 
 <div id='map'></div>
 
-<div id='content'>
-  <div class="sidecontainer">
-    <div class="row">
-      
-      <div class="col-md-9"><h4>Public water fountains</h4><!--<p><small>(Many thanks to <a href="http://www.burlingtonfreepress.com/" target="_blank">The Burlington Free Press</a> & <a href="https://twitter.com/asuozzo" target="_blank">Andrea Suozzo</a>)</small></p>--></div>
-      <div class="col-md-3"><a class="btn btn-primary" target="_blank" href="add/">Add more!</a></div>
-    </div>    
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">FOUNT.ONE</h4>
+      </div>
+      <div class="modal-body">
+        <p>Need a drink of water? This map shows you nearby, publicly-accessible water sources, and how to get to them! Click on any fountain icon to navigate there from your current location.</p>
+        <hr>
+        <div class="row">
+          <div class="col-md-6">Know of a source that's not displayed here? </div>
+          <div class="col-md-4"><a class="btn btn-lg btn-primary" target="_blank" href="add/">Add it to the map!</a></div>
+        </div>
+        <p></p>
+        <p></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
   </div>
 </div>
 
-<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
-<script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
-
-<script>
-$.getJSON("https://spreadsheets.google.com/feeds/list/1Qs0kZqTtlaMqgmqQphKmk7a0BELjQXeYb0CJVQZk7js/1/public/values?alt=json", function(data) {
-  L.mapbox.accessToken = 'pk.eyJ1IjoibGFuZHBsYW5uZXIiLCJhIjoicUtlZGgwYyJ9.UFYz8MD4lI4kIzk9bjGFvg';
-  var map = L.mapbox.map('map');
-  console.log(data.feed.entry)
-  var base = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGFuZHBsYW5uZXIiLCJhIjoicUtlZGgwYyJ9.UFYz8MD4lI4kIzk9bjGFvg').addTo(map)
-  
-  console.log(data.feed.entry)
-  var stops = data.feed.entry;
-
-  var pokeGeojson = {type: 'FeatureCollection', features: []};
-
-  for (var i in stops) {
-    if (stops[i].gsx$latitude.$t) {
-      var feature = {
-        type: 'Feature',
-        properties: {
-          title: '<h1>' + stops[i].gsx$name.$t + '</h1>',
-          'marker-color': '#16264E',
-          'marker-size': 'large',
-          'marker-symbol': 'roadblock'//,
-          //url: 'https://gisdevs.slack.com/team/' + stops[i].gsx$name.$t
-        },
-        geometry: {
-          type: 'Point',
-          coordinates: [stops[i].gsx$longitude.$t, stops[i].gsx$latitude.$t]
-        }
-      };
-      pokeGeojson.features.push(feature);
-    }
-  }
-
-  var myLayer = L.mapbox.featureLayer().addTo(map);
-
-  myLayer.setGeoJSON(pokeGeojson);
-  myLayer.on('mouseover', function(e) {
-      e.layer.openPopup();
-  });
-  myLayer.on('mouseout', function(e) {
-      e.layer.closePopup();
-  });
-  myLayer.on('click', function(e) {
-    window.open(e.layer.feature.properties.url);
-  });
-  map.setView([44.4773, -73.2144], 14);
-  map.fitBounds(myLayer.getBounds());
-});
-</script>
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.33.1/mapbox-gl.js'></script>
+<script src='mainMap.js'></script>
 
 
 </body>
