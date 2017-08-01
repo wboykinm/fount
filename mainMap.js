@@ -1,4 +1,4 @@
-mapboxgl.accessToken = 'pk.eyJ1IjoiZXhhbXBsZXMiLCJhIjoiY2lqbmpqazdlMDBsdnRva284cWd3bm11byJ9.V6Hg2oYJwMAxeoR9GEzkAA';
+mapboxgl.accessToken = 'pk.eyJ1IjoibGFuZHBsYW5uZXIiLCJhIjoicUtlZGgwYyJ9.UFYz8MD4lI4kIzk9bjGFvg';
 var url = "https://spreadsheets.google.com/feeds/list/1Qs0kZqTtlaMqgmqQphKmk7a0BELjQXeYb0CJVQZk7js/1/public/values?alt=json"
 // General function
 if (!('remove' in Element.prototype)) {
