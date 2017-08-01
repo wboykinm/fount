@@ -99,7 +99,7 @@ $.getJSON(url, function(data) {
     function flyToSite(currentFeature) {
       map.flyTo({
         center: currentFeature.geometry.coordinates,
-        zoom: 15,
+        zoom: 16.5,
         bearing: Math.floor(Math.random() * 50) + 1,
         pitch: Math.floor(Math.random() * 40) + 21,
         speed: 0.3,
