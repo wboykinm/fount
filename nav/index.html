@@ -48,7 +48,8 @@ var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/landplanner/cihldjdg6000xsikxm85isfo5',
   center: JSON.parse("[" + queryString.start + "]") || '[-79.4512, 43.6568]',
-  zoom: 8
+  zoom: 8,
+  pitch: 55
 });
 
 var directions = new mapboxgl.Directions({
