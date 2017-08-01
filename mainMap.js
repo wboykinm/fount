@@ -56,7 +56,7 @@ $.getJSON(url, function(data) {
   
   var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/outdoors-v10',
+    style: 'mapbox://styles/landplanner/cirqis7ob0004g6mb94a54q65',
     center: [-73.21349,44.47657],
     zoom: 14,
     pitch: 55
