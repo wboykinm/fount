@@ -4,9 +4,8 @@
   <meta charset='utf-8' />
   <title></title>
   <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.20.0/mapbox-gl.js'></script>
-  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.20.0/mapbox-gl.css' rel='stylesheet' />
-  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/paper/bootstrap.min.css" rel="stylesheet" integrity="sha256-hMIwZV8FylgKjXnmRI2YY0HLnozYr7Cuo1JvRtzmPWs= sha512-k+wW4K+gHODPy/0gaAMUNmCItIunOZ+PeLW7iZwkDZH/wMaTrSJTt7zK6TGy6p+rnDBghAxdvu1LX2Ohg0ypDw==" crossorigin="anonymous">  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.11.4/mapbox-gl.css' rel='stylesheet' />
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.39.1/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.39.1/mapbox-gl.css' rel='stylesheet' />
   <style>
     body { margin:0; padding:0; }
     #map { position:absolute; top:0; bottom:0; width:100%; }
@@ -14,10 +13,10 @@
 </head>
 <body>
 
-<script src='https://api.tiles.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v2.0.0/mapbox-gl-directions.js'></script>
-<link rel='stylesheet' href='https://api.tiles.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v2.0.0/mapbox-gl-directions.css' type='text/css' />
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v3.1.1/mapbox-gl-directions.js'></script>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v3.1.1/mapbox-gl-directions.css' type='text/css' />
 <div id='map'></div>
-<div id='directions'></div>
+
 <script>
 
 var queryString = function () {
@@ -45,20 +44,20 @@ var queryString = function () {
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibGFuZHBsYW5uZXIiLCJhIjoicUtlZGgwYyJ9.UFYz8MD4lI4kIzk9bjGFvg';
 var map = new mapboxgl.Map({
-  container: 'map',
-  style: 'mapbox://styles/landplanner/cihldjdg6000xsikxm85isfo5',
-  center: JSON.parse("[" + queryString.start + "]") || '[-79.4512, 43.6568]',
-  zoom: 8,
-  pitch: 55
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v9',
+    center: JSON.parse("[" + queryString.start + "]") || '[-79.4512, 43.6568]',
+    zoom: 13,
+    pitch: 55
 });
 
-var directions = new mapboxgl.Directions({
-  unit: 'imperial',
-  profile: 'walking',
-  container: 'directions'
-});
+var directions = new MapboxDirections({
+    accessToken: mapboxgl.accessToken,
+    unit: 'imperial',
+    profile: 'walking'
+})
 
-map.addControl(directions);
+map.addControl(directions, 'top-left');
 
 map.on('load', () => {
   // get querystring params
