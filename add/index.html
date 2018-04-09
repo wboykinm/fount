@@ -100,11 +100,11 @@
       $('#entry_128446237').attr('value', y);
       $('#entry_957516204').attr('value', x);
       
-      L.mapbox.accessToken = 'pk.eyJ1IjoibGFuZHBsYW5uZXIiLCJhIjoicUtlZGgwYyJ9.UFYz8MD4lI4kIzk9bjGFvg';
+      L.mapbox.accessToken = 'pk.eyJ1IjoibGFuZHBsYW5uZXIiLCJhIjoiY2pmYmpmZmJrM3JjeTMzcGRvYnBjd3B6byJ9.qr2gSWrXpUhZ8vHv-cSK0w';
       var map = L.mapbox.map('map');
       map.setView([y, x], z);
       
-      var base = L.tileLayer('https://api.mapbox.com/styles/v1/landplanner/cirqis7ob0004g6mb94a54q65/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGFuZHBsYW5uZXIiLCJhIjoicUtlZGgwYyJ9.UFYz8MD4lI4kIzk9bjGFvg').addTo(map)
+      var base = L.tileLayer('https://api.mapbox.com/styles/v1/landplanner/cjfso6f2z4sn12sjwh597ecki/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGFuZHBsYW5uZXIiLCJhIjoiY2pmYmpmZmJrM3JjeTMzcGRvYnBjd3B6byJ9.qr2gSWrXpUhZ8vHv-cSK0w').addTo(map)
 
       // Update these values as the map gets dragged around
       map.on('moveend', function(event) {
